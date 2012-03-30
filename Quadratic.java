@@ -27,8 +27,8 @@ public class Quadratic {
 		double x1, x2, sqrt, q;
 		double discriminant = b*b - 4*a*c;
 		
-		// check if b^2 >> 4ac
-		if (discriminant == b*b) {
+		// check for overflow and b^2 >> 4ac
+		if (Double.isNaN(discriminant) || discriminant == b*b) {
 			throw new NotEnoughPrecisionException();
 		}
 		
@@ -142,7 +142,8 @@ public class Quadratic {
 			try {
 				Quadratic.solveQuadratic(a, b, c);
 			} catch (NotEnoughPrecisionException e) {
-				System.out.println("The values you chose lead to a loss of precision! When b^2 is much bigger than 4ac, the program may give an incorrect answer.");
+				System.out.println("Failed to find an accurate solution! This can happen when the values are too" +
+						" big, or b^2 is much bigger than 4ac. Try using smaller values.");
 			}
 			
 			// prompt user
