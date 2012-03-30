@@ -91,7 +91,7 @@ public class Quadratic {
 	}
 	
 	/* 
-	 * Checks whether a double value actually represents a string, and formats accordingly.
+	 * Checks whether a double value actually represents an integer, and formats accordingly.
 	 */
 	private static String formatDouble(double value) {
 		
