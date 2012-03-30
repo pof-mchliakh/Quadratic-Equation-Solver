@@ -1,9 +1,10 @@
 /*
  * Mikhail Chliakhovski
  * 9730117
- * Albert
+ * Albert Nguyen
+ * 9242112
  * 
- * COMP 456
+ * COMP 465
  * Assignment 4
  * 
  * A Quadratic Equation Solver. Real and complex roots are supported, but not complex coefficients. Loss of precision due to round-off
