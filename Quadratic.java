@@ -24,9 +24,9 @@ public class Quadratic {
 	 */
 	public static void solveQuadratic(double a, double b, double c) throws NotEnoughPrecisionException {
 		
-		double x1, x2, sqrt, real, q;
+		double sqrt, real, q;
 		double discriminant = b*b - 4*a*c;
-		String imaginary, output;
+		String imaginary, output, x1, x2;
 		
 		// check for overflow and b^2 >> 4ac
 		if (Double.isNaN(discriminant) || discriminant == b*b) {
@@ -37,7 +37,7 @@ public class Quadratic {
 			sqrt = sqrtByNewton(-1*discriminant);
 			real = (-1*b) / (2*a);
 			imaginary = formatDouble(sqrt/(2*a));
-			// generate output
+			// don't print redundant zeros and signs
 			output = "x1 = ";
 			output += (real != 0) ? real + " + " : "";
 			output += (!imaginary.equals("1")) ? imaginary : "";
@@ -50,10 +50,12 @@ public class Quadratic {
 			sqrt = sqrtByNewton(discriminant);
 			// mixed approach to avoid subtractive cancellation
 			q = (-0.5) * (b + sign(b)*sqrt);
-			x1 = q / a;
-			x2 = c / q;
-			// output roots
-			System.out.println("x1 = " + x1 + "\nx2 = " + x2);
+			x1 = formatDouble(q/a);
+			x2 = formatDouble(c/q);
+			// don't print the same root twice
+			output = "x1 = " + x1;
+			output += (!x1.equals(x2)) ? "\nx2 = " + x2 : "";
+			System.out.println(output);
 		}	
 		
 	}
@@ -69,6 +71,9 @@ public class Quadratic {
 	 * Computes the square root of a number using Newton's Method. Returns when the error threshold has been reached.
 	 */
 	private static double sqrtByNewton(double value) {
+		
+		// square root of zero is zero
+		if (value == 0) return 0;
 		
 		double result, previous;
 		previous = (1 + value)/2;
@@ -132,7 +137,7 @@ public class Quadratic {
 		
 		String prompt;
 		
-		// output welcome message
+		// welcome message
 		System.out.println("Welcome to Quadratic Equation Solver.\n" +
 				"A quadratic equation can be written in the form ax^2 + bx + c = 0, where x is an unknown, a, b, and c are constants, and a is not zero.\n" +
 				"Given values for a, b, and c, this program will produce the two roots of the equation. Both real and complex roots are supported, but not complex coefficients.\n" +
@@ -183,7 +188,7 @@ public class Quadratic {
 		
 		}
 		
-		// output goodbye message
+		// goodbye
 		System.out.println("Thank you for using Quadratic Equation Solver!");
 		
 	}
