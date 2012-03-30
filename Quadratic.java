@@ -24,8 +24,9 @@ public class Quadratic {
 	 */
 	public static void solveQuadratic(double a, double b, double c) throws NotEnoughPrecisionException {
 		
-		double x1, x2, sqrt, q;
+		double x1, x2, sqrt, real, q;
 		double discriminant = b*b - 4*a*c;
+		String imaginary, output;
 		
 		// check for overflow and b^2 >> 4ac
 		if (Double.isNaN(discriminant) || discriminant == b*b) {
@@ -34,7 +35,17 @@ public class Quadratic {
 		
 		if (discriminant < 0) { // complex roots
 			sqrt = sqrtByNewton(-1*discriminant);
-			System.out.println("x1 = " + (-1*b)/(2*a) + " + " + sqrt/(2*a) + "i\nx2 = " + (-1*b)/(2*a) + " - " + sqrt/(2*a) + "i");
+			real = (-1*b) / (2*a);
+			imaginary = formatDouble(sqrt/(2*a));
+			// generate output
+			output = "x1 = ";
+			output += (real != 0) ? real + " + " : "";
+			output += (!imaginary.equals("1")) ? imaginary : "";
+			output += "i\nx2 = ";
+			output += (real != 0) ? real + " - " : "-";
+			output += (!imaginary.equals("1")) ? imaginary : "";
+			output += "i";
+			System.out.println(output);
 		} else { // real roots
 			sqrt = sqrtByNewton(discriminant);
 			// mixed approach to avoid subtractive cancellation
@@ -71,6 +82,22 @@ public class Quadratic {
 		}
 		
 		return result;
+		
+	}
+	
+	/* 
+	 * Checks whether a double value actually represents a string, and formats accordingly.
+	 */
+	private static String formatDouble(double value) {
+		
+		// check if value is actually an integer
+		if (Math.floor(value) == value) {
+			Integer intValue = (int)value;
+			return intValue.toString();
+		} else {
+			Double doubleValue = value;
+			return doubleValue.toString();
+		}
 		
 	}
 	
