@@ -24,9 +24,9 @@ public class Quadratic {
 	 */
 	public static void solveQuadratic(double a, double b, double c) throws NotEnoughPrecisionException {
 		
-		double sqrt, real, q;
+		double sqrt, q;
 		double discriminant = b*b - 4*a*c;
-		String imaginary, output, x1, x2;
+		String real, imaginary, output, x1, x2;
 		
 		// check for overflow and b^2 >> 4ac
 		if (Double.isNaN(discriminant) || discriminant == b*b) {
@@ -35,14 +35,14 @@ public class Quadratic {
 		
 		if (discriminant < 0) { // complex roots
 			sqrt = sqrtByNewton(-1*discriminant);
-			real = (-1*b) / (2*a);
+			real = formatDouble((-1*b)/(2*a));
 			imaginary = formatDouble(sqrt/(2*a));
 			// don't print redundant zeros and signs
 			output = "x1 = ";
-			output += (real != 0) ? real + " + " : "";
+			output += (!real.equals("0")) ? real + " + " : "";
 			output += (!imaginary.equals("1")) ? imaginary : "";
 			output += "i\nx2 = ";
-			output += (real != 0) ? real + " - " : "-";
+			output += (!real.equals("0")) ? real + " - " : "-";
 			output += (!imaginary.equals("1")) ? imaginary : "";
 			output += "i";
 			System.out.println(output);
