@@ -175,7 +175,7 @@ public class Quadratic {
 				Quadratic.solveQuadratic(a, b, c);
 			} catch (NotEnoughPrecisionException e) {
 				System.out.println("Failed to find an accurate solution! This can happen when the values are too" +
-						" big, or b^2 is much bigger than 4ac. Try using smaller values.");
+						" big, a is too close to zero, or b^2 is much bigger than 4ac.");
 			}
 			
 			// prompt user
